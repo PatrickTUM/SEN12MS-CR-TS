@@ -27,7 +27,7 @@ rsync -chavzP --stats rsync://m1639953@dataserv.ub.tum.de/m1639953/ .
 For the sake of convenient downloading and unzipping, the data set is sharded into separate archives per sensor modality and geographical region. You can, if needed only download and exclusively work on e.g. Sentinel-2 data for cloud removal in Africa. However, we recommend utilizing the global distribution of ROI and emphasize that this code base is written with the full data set in mind. After all archives are downloaded and their subdirectories extracted, you can simply merge them via `mv */* .` in the parent directory to obtain the required structure that the repository's code expects.
 
 ### Code
-Clone this data set via `git clone git@github.com:mondlichtpierrot/SEN12MS-CR-TS_cleanup.git`.
+Clone this data set via `git clone https://github.com/PatrickTUM/SEN12MS-CR-TS.git`.
 
 The code is written in Python 3 and uses PyTorch > 1.4. It is strongly recommended to run the code with CUDA and GPU support. The code has been developed and deployed in Ubuntu 20 LTS and should be able to run in any comparable OS.
 
