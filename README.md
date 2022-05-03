@@ -24,7 +24,7 @@ wget "ftp://m1639953:m1639953@dataserv.ub.tum.de/s1_africa.tar.gz"
 rsync -chavzP --stats rsync://m1639953@dataserv.ub.tum.de/m1639953/ .
 ```
 
-For the sake of convenient downloading and unzipping, the data set is sharded into separate archives per sensor modality and geographical region. You can, if needed only download and exclusively work on e.g. Sentinel-2 data for cloud removal in Africa. However, we recommend utilizing the global distribution of ROI and emphasize that this code base is written with the full data set in mind. After all archives are downloaded and their subdirectories extracted, you can simply merge them via `mv */* .` in the parent directory to obtain the required structure that the repository's code expects.
+For the sake of convenient downloading and unzipping, the data set is sharded into separate archives per sensor modality and geographical region. You can, if needed only download and exclusively work on e.g. Sentinel-2 data for cloud removal in Africa. However, we recommend utilizing the global distribution of ROI and emphasize that this code base is written with the full data set in mind. After all archives are downloaded and their subdirectories extracted, you can simply merge them via `rsync -a */* .` in the parent directory to obtain the required structure that the repository's code expects.
 
 ### Code
 Clone this data set via `git clone https://github.com/PatrickTUM/SEN12MS-CR-TS.git`.
