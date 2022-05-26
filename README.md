@@ -10,21 +10,22 @@ This repository contains code accompanying the paper
 It serves as a quick start for working with the associated SEN12MS-CR-TS data set. For additional information:
 
 * The open-access publication is available at [the IEEE TGRS page](https://ieeexplore.ieee.org/document/9691348). 
-* The open-access SEN12MS-CR data set is available at [the MediaTUM page](https://mediatum.ub.tum.de/1639953). 
+* The open-access SEN12MS-CR data set is available at the MediaTUM page [here](https://mediatum.ub.tum.de/1639953) (train split) and [here](https://mediatum.ub.tum.de/1659251) (test split).
 * You can find further information on this and related projects on the associated [website](https://patricktum.github.io/cloud_removal/).
 
 ---
 
 ## Installation
 ### Dataset
-You can download the SEN12MS-CR-TS data set (or parts of it) via the [MediaTUM website](https://mediatum.ub.tum.de/1639953) or in the terminal (passwd: m1639953) using wget or rsync, for instance via
+You can download the SEN12MS-CR-TS data set (or parts of it) via the MediaTUM website [here](https://mediatum.ub.tum.de/1639953) (train split) and [here](https://mediatum.ub.tum.de/1659251) (test split) or in the terminal (passwd: *m1639953* or *m1659251*) using wget or rsync, for instance via
 
 ```bash
 wget "ftp://m1639953:m1639953@dataserv.ub.tum.de/s1_africa.tar.gz"
 rsync -chavzP --stats rsync://m1639953@dataserv.ub.tum.de/m1639953/ .
+rsync -chavzP --stats rsync://m1659251@dataserv.ub.tum.de/m1659251/ .
 ```
 
-For the sake of convenient downloading and unzipping, the data set is sharded into separate archives per sensor modality and geographical region. You can, if needed only download and exclusively work on e.g. Sentinel-2 data for cloud removal in Africa. However, we recommend utilizing the global distribution of ROI and emphasize that this code base is written with the full data set in mind. After all archives are downloaded and their subdirectories extracted, you can simply merge them via `rsync -a */* .` in the parent directory to obtain the required structure that the repository's code expects.
+For the sake of convenient downloading and unzipping, the data set is sharded into separate archives per sensor modality and geographical region. You can, if needed only download and exclusively work on e.g. Sentinel-2 data for cloud removal in Africa. However, we recommend utilizing the global distribution of ROI and emphasize that this code base is written with the full data set in mind. After all archives are downloaded and their subdirectories extracted (e.g. via `find . -name '*.tar.gz' -exec tar -xzvf {} \;`), you can simply merge them via `rsync -a */* .` in the parent directory to obtain the required structure that the repository's code expects. Handle the test split likewise.
 
 ### Code
 Clone this data set via `git clone https://github.com/PatrickTUM/SEN12MS-CR-TS.git`.
