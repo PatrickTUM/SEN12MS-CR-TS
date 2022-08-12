@@ -27,6 +27,8 @@ rsync -chavzP --stats rsync://m1659251@dataserv.ub.tum.de/m1659251/ .
 
 For the sake of convenient downloading and unzipping, the data set is sharded into separate archives per sensor modality and geographical region. You can, if needed only download and exclusively work on e.g. Sentinel-2 data for cloud removal in Africa. However, we recommend utilizing the global distribution of ROI and emphasize that this code base is written with the full data set in mind. After all archives are downloaded and their subdirectories extracted (e.g. via `find . -name '*.tar.gz' -exec tar -xzvf {} \;`), you can simply merge them via `rsync -a */* .` in the parent directory to obtain the required structure that the repository's code expects. Handle the test split likewise.
 
+**Update:** You can now easily download SEN12MS-CR-TS (and SEN12MS-CR) via the shell script provided [here](https://github.com/PatrickTUM/SEN12MS-CR-TS/blob/0981e42f3e046c663e5fb38171b0f12cc8df5083/util/dl_data.sh).
+
 ### Code
 Clone this data set via `git clone https://github.com/PatrickTUM/SEN12MS-CR-TS.git`.
 
