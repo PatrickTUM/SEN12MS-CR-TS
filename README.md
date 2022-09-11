@@ -11,8 +11,8 @@ It serves as a quick start for working with the associated SEN12MS-CR-TS data se
 
 * The open-access publication is available at [the IEEE TGRS page](https://ieeexplore.ieee.org/document/9691348). 
 * The open-access SEN12MS-CR data set is available at the MediaTUM page [here](https://mediatum.ub.tum.de/1639953) (train split) and [here](https://mediatum.ub.tum.de/1659251) (test split).
-* You can find further information on this and related projects on the associated [website](https://patricktum.github.io/cloud_removal/).
-
+* You can find additional information on this and related projects on the associated [project page](https://patricktum.github.io/cloud_removal/).
+* For any further questions, please reach out to me here or via the credentials on my [website](https://pwjebel.com).
 ---
 
 ## Installation
