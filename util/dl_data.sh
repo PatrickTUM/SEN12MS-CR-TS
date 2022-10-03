@@ -15,8 +15,8 @@ echo
 while true; do
     read -p "Do you wish to download the multitemporal SEN12MS-CR-TS data set? " yn
     case $yn in
-        [Yy]* ) SEN12MSCRTS=true; ;;
-        [Nn]* ) SEN12MSCRTS=false; ;;
+        [Yy]* ) SEN12MSCRTS=true; break;;
+        [Nn]* ) SEN12MSCRTS=false; break;;
         * ) echo "Please answer yes or no.";;
     esac
 done
@@ -25,7 +25,7 @@ if [ "$SEN12MSCRTS" = "true" ]; then
 	while true; do
 		read -p "What regions would you like to download? [all|africa|america|asiaEast|asiaWest|europa] " region
 		case $region in
-			all|africa|america|asiaEast|asiaWest|europa ) reg=$region; ;;
+			all|africa|america|asiaEast|asiaWest|europa ) reg=$region; break;;
 		    * ) echo "Please answer [all|africa|america|asiaEast|asiaWest|europa].";;
 		esac
 	done
@@ -34,8 +34,8 @@ fi
 while true; do
     read -p "Do you wish to also download the monotemporal SEN12MS-CR data set (all regions)? " yn
     case $yn in
-        [Yy]* ) SEN12MSCR=true; ;;
-        [Nn]* ) SEN12MSCR=false; ;;
+        [Yy]* ) SEN12MSCR=true; break;;
+        [Nn]* ) SEN12MSCR=false; break;;
         * ) echo "Please answer yes or no.";;
     esac
 done
@@ -43,8 +43,8 @@ done
 while true; do
 	read -p "Do you wish to also download the Sentinel-1 radar data associated with your previous choices? " yn
 	case $yn in
-	    [Yy]* ) S1=true; ;;
-	    [Nn]* ) S1=false; ;;
+	    [Yy]* ) S1=true; break;;
+	    [Nn]* ) S1=false; break;;
 	    * ) echo "Please answer yes or no.";;
 	esac
 done
