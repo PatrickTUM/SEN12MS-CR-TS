@@ -283,7 +283,7 @@ for key in "${!url_dict[@]}"; do
     # download
     wget --no-check-certificate -c -P $dl_extract_to -O $filename ${url_dict[$key]}
     # unzip and delete archive
-    tar --extract --file $dl_extract_to'/'$filename
+    tar --extract --file $dl_extract_to'/'$filename -C $dl_extract_to
     rm $dl_extract_to'/'$filename
 done
 
