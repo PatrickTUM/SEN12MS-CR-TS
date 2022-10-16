@@ -1,7 +1,7 @@
 FROM pytorch/pytorch:latest
     
-# note: as of now, is not compiled for CUDA 11.3 yet,
-# please consider base image nvcr.io/nvidia/pytorch:latest
+# note: as of now, pytorch/pytorch:latest is not compiled for CUDA > 11.3 yet,
+# if you run CUDA > 11.3 please consider base image nvcr.io/nvidia/pytorch:latest
 # on NGS: https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch
 
 # in case you run CUDA > 11.3 and prefer pytorch/pytorch:latest, then consider this conda-forge build:

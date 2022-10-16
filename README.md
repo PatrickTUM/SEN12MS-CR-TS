@@ -27,7 +27,7 @@ rsync -chavzP --stats rsync://m1659251@dataserv.ub.tum.de/m1659251/ .
 
 For the sake of convenient downloading and unzipping, the data set is sharded into separate archives per sensor modality and geographical region. You can, if needed only download and exclusively work on e.g. Sentinel-2 data for cloud removal in Africa. However, we recommend utilizing the global distribution of ROI and emphasize that this code base is written with the full data set in mind. After all archives are downloaded and their subdirectories extracted (e.g. via `find . -name '*.tar.gz' -exec tar -xzvf {} \;`), you can simply merge them via `rsync -a */* .` in the parent directory to obtain the required structure that the repository's code expects. Handle the test split likewise.
 
-**Update:** You can now easily download SEN12MS-CR-TS (and SEN12MS-CR) via the shell script provided [here](https://github.com/PatrickTUM/SEN12MS-CR-TS/blob/0981e42f3e046c663e5fb38171b0f12cc8df5083/util/dl_data.sh).
+**Update:** You can now easily download SEN12MS-CR-TS (and SEN12MS-CR) via the shell script provided [here](https://github.com/PatrickTUM/SEN12MS-CR-TS/blob/master/util/dl_data.sh).
 
 ### Code
 Clone this data set via `git clone https://github.com/PatrickTUM/SEN12MS-CR-TS.git`.
@@ -45,12 +45,11 @@ Depending on your choice of the split, ROI, the length of the input time series 
 ### Basic Commands
 You can train a new model via
 ```bash
-python train.py --dataroot /path/to/sen12mscrts --name exemplary_training_run --dataset_mode template --sample_type cloudy_cloudfree --model temporal_branched --netG resnet3d_9blocks_withoutBottleneck --gpu_ids 0 --max_dataset_size 100000 --checkpoints_dir /path/to/results --input_type train --cloud_masks s2cloudless_mask --include_S1 --input_nc 15 --output_nc 13 --G_loss L1 --lambda_GAN 0.0 --display_freq 1000 --alter_initial_model --initial_model_path /path/to/models/baseline_resnet.pth --n_input_samples 3
-
+python train.py --dataroot /path/to/sen12mscrts --name exemplary_training_run --sample_type cloudy_cloudfree --model temporal_branched --netG resnet3d_9blocks_withoutBottleneck --gpu_ids 0 --max_dataset_size 100000 --checkpoints_dir /path/to/results --input_type train --cloud_masks s2cloudless_mask --include_S1 --input_nc 15 --output_nc 13 --G_loss L1 --lambda_GAN 0.0 --display_freq 1000 --alter_initial_model --initial_model_path /path/to/models/baseline_resnet.pth --n_input_samples 3 --region all
 ```
 and you can test a (pre-)trained model via
 ```bash
-python test.py --dataroot /path/to/sen12mscrts --results_dir /path/to/results --checkpoints_dir /path/to/results --name exemplary_training_run --model temporal_branched --netG resnet3d_9blocks_withoutBottleneck --include_S1 --input_nc 15 --output_nc 13 --dataset_mode template --sample_type cloudy_cloudfree --cloud_masks s2cloudless_mask --input_type test --max_dataset_size 100000 --num_test 100000 --n_input_samples 3 --epoch latest --eval --phase test --alter_initial_model --initial_model_path /path/to/models/baseline_resnet.pth --min_cov 0.0 --max_cov 1.0
+python test.py --dataroot /path/to/sen12mscrts --results_dir /path/to/results --checkpoints_dir /path/to/results --name exemplary_training_run --model temporal_branched --netG resnet3d_9blocks_withoutBottleneck --include_S1 --input_nc 15 --output_nc 13 --sample_type cloudy_cloudfree --cloud_masks s2cloudless_mask --input_type test --max_dataset_size 100000 --num_test 100000 --n_input_samples 3 --epoch latest --eval --phase test --alter_initial_model --initial_model_path /path/to/models/baseline_resnet.pth --min_cov 0.0 --max_cov 1.0 --region all
 ```
 
 For a list and description of all flags, please see the parser files in directory `./options`.
