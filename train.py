@@ -23,13 +23,18 @@ import numpy as np
 import torch
 
 import time
+import warnings
 from options.train_options import TrainOptions
 from data import create_dataset
 from models import create_model
 from util.visualizer import Visualizer
+import faulthandler; faulthandler.enable() 
 
 if __name__ == '__main__':
     opt = TrainOptions().parse()   # get training options
+    if opt.batch_size !=1:
+        warnings.warn(f'Detected batch size {opt.batch_size}, but only supporting batch size 1! Defaulting to 1')
+        opt.batch_size = 1          # test code only supports batch_size = 1 # TODO: change this in future versions
     dataset = create_dataset(opt)  # create a dataset given opt.dataset_mode and other options
     dataset_size = len(dataset)    # get the number of images in the dataset.
     print('The number of training images = %d' % dataset_size)

@@ -27,6 +27,7 @@ See training and test tips at: https://github.com/junyanz/pytorch-CycleGAN-and-p
 See frequently asked questions at: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/blob/master/docs/qa.md
 """
 import os
+import warnings
 import numpy as np
 from options.test_options import TestOptions
 from data import create_dataset
@@ -35,7 +36,6 @@ import torch
 from util.visualizer import save_images
 from util import html
 from util import pytorch_ssim
-import numpy
 import models.network_resnet_branched as initial_resnet
 import torch.nn as nn
 from models.networks_branched import freeze_resnet
@@ -100,7 +100,7 @@ def save_eval_metric(metric, path, label):
         m.append(dum)
     f.write('Overall mean')
     # for each metric, compute the average value
-    for each in numpy.nanmean(m, axis=0):
+    for each in np.nanmean(m, axis=0):
         f.write('\t' + str(each))
     f.close()
 
@@ -142,7 +142,9 @@ if __name__ == '__main__':
     opt = TestOptions().parse()  # get test options
     # hard-code some parameters for test
     #opt.num_threads = 10           # test code only supports num_threads = 1
-    opt.batch_size = 1              # test code only supports batch_size = 1
+    if opt.batch_size !=1:
+        warnings.warn(f'Detected batch size {opt.batch_size}, but only supporting batch size 1! Defaulting to 1')
+        opt.batch_size = 1          # test code only supports batch_size = 1 # TODO: change this in future versions
     opt.serial_batches = True       # disable data shuffling
     opt.no_flip = True              # no flip; comment this line if results on flipped images are needed.
     opt.display_id = -1             # no visdom display; the test code saves the results to a HTML file.
@@ -247,10 +249,10 @@ if __name__ == '__main__':
     # save metric stats for the STGAN model
     if not opt.benchmark_resnet_model:
         save_eval_metric(eval_metric, web_dir, 'stgan')
-        numpy.save(os.path.join(web_dir, f'eval_metric_{"stgan"}.npy'), eval_metric)
+        np.save(os.path.join(web_dir, f'eval_metric_{"stgan"}.npy'), eval_metric)
     # save simple baselines and resnet stats
     if opt.include_simple_baselines or opt.benchmark_resnet_model:
         for i, name in enumerate(baseline_metric):
             print(f"Summarizing statistics for baseline {name}")
             save_eval_metric(baseline_metric[name], web_dir, name)
-            numpy.save(os.path.join(web_dir, f'eval_metric_{name}.npy'), baseline_metric[name])
+            np.save(os.path.join(web_dir, f'eval_metric_{name}.npy'), baseline_metric[name])

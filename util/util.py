@@ -186,7 +186,7 @@ def load_vgg16(f, device):
     net.load_state_dict(state_dict)
     net.to(device)
     net.eval()
-    net.requires_grad = False
+    #net.requires_grad = False
 
     return net
 

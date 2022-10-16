@@ -45,7 +45,8 @@ class BaseOptions():
         # dataset parameters
         parser.add_argument('--sample_type', type=str, default='generic', help='choose the format of input data. [cloudy_cloudfree | generic]')
         parser.add_argument('--input_type', type=str, default='all', help='choose the type of input. [all | test | val | train]')
-        parser.add_argument('--dataset_mode', type=str, default='unaligned', help='chooses how datasets are loaded. [unaligned | aligned | single | colorization]')
+        parser.add_argument('--region', type=str, default='all', help='choose the region of data input. [all | africa | america | asiaEast | asiaWest | europa')
+        parser.add_argument('--dataset_mode', type=str, default='sen12mscrts', help='chooses how datasets are loaded. [unaligned | aligned | single | colorization | sen12mscrts]')
         parser.add_argument('--direction', type=str, default='AtoB', help='AtoB or BtoA')
         parser.add_argument('--serial_batches', action='store_true', help='if true, takes images in order to make batches, otherwise takes them randomly')
         parser.add_argument('--num_threads', default=10, type=int, help='# threads for loading data')
@@ -64,7 +65,7 @@ class BaseOptions():
         parser.add_argument('--verbose', action='store_true', help='if specified, print more debugging information')
         parser.add_argument('--suffix', default='', type=str, help='customized suffix: opt.name = opt.name + suffix: e.g., {model}_{netG}_size{load_size}')
         parser.add_argument('--n_input_samples', default=3, type=int, help='number of input samples')
-        parser.add_argument('--unfreeze_iter', type=int, default=100000, help='number of iterations after which the initial ResNet model gets unfreezed, if -1 then initialize randomly')
+        parser.add_argument('--unfreeze_iter', type=int, default=100000, help='number of iterations after which the initial ResNet model gets unfrozen, if -1 then initialize randomly')
         # new parameters pertaining to ResNet model
         parser.add_argument('--alter_initial_model', action='store_true', help='change the initial model with pre-trained network')
         parser.add_argument('--initial_model_path', type=str, default='none', help='path to the pre-trained initial model network')

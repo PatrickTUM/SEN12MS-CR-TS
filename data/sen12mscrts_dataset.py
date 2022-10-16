@@ -1,15 +1,6 @@
-"""Dataset class template
+"""Dataset class SEN12MSCRTS
 
-This module provides a template for users to implement custom datasets.
-You can specify '--dataset_mode template' to use this dataset.
-The class name should be consistent with both the filename and its dataset_mode option.
-The filename should be <dataset_mode>_dataset.py
-The class name should be <Dataset_mode>Dataset.py
-You need to implement the following functions:
-    -- <modify_commandline_options>:　Add dataset-specific options and rewrite default values for existing options.
-    -- <__init__>: Initialize this dataset class.
-    -- <__getitem__>: Return a data point and its metadata information.
-    -- <__len__>: Return the number of images.
+This class wraps around the SEN12MSCRTS dataloader in ./dataLoader.py
 """
 
 import numpy as np
@@ -20,8 +11,7 @@ from data.image_folder import make_dataset
 from data.dataLoader import SEN12MSCRTS
 
 
-class TemplateDataset(BaseDataset):
-    """A template dataset class for you to implement custom datasets."""
+class Sen12mscrtsDataset(BaseDataset):
     @staticmethod
     def modify_commandline_options(parser, is_train):
         """Add new dataset-specific options, and rewrite default values for existing options.
@@ -56,7 +46,7 @@ class TemplateDataset(BaseDataset):
             self.rescale_method = 'default' # rescale all to [-1,1] (gets rescaled to [0,1])
 
         self.opt 			= opt
-        self.data_loader 	= SEN12MSCRTS(opt.dataroot, opt.input_type, opt.cloud_masks, opt.sample_type, opt.n_input_samples, self.rescale_method, opt.min_cov, opt.max_cov, opt.import_data_path, opt.export_data_path)
+        self.data_loader 	= SEN12MSCRTS(opt.dataroot, split=opt.input_type, region='all', cloud_masks=opt.cloud_masks, sample_type=opt.sample_type, n_input_samples=opt.n_input_samples, rescale_method=self.rescale_method, min_cov=opt.min_cov, max_cov=opt.max_cov, import_data_path=opt.import_data_path, export_data_path=opt.export_data_path)
         self.max_bands		= 13
 
     def __getitem__(self, index):
@@ -132,10 +122,10 @@ class TemplateDataset(BaseDataset):
         elif self.rescale_method == 'resnet':
             B = B_01  # no need to rescale, keep at [0,5]
         B_mask = cloudy_cloudfree['target']['masks'][0].reshape((1, 256, 256))
-        image_path = cloudy_cloudfree['target']['S2_path']
+        image_path = cloudy_cloudfree['target']['S2 path']
         
         coverage_bin = True
-        if "coverage_bin" in cloudy_cloudfree: coverage_bin = cloudy_cloudfree["coverage_bin"]
+        if "coverage bin" in cloudy_cloudfree: coverage_bin = cloudy_cloudfree["coverage bin"]
 
         if self.opt.include_S1:
             return {'A_S1': A_S1, 'A_S2': A_S2, 'A_mask': A_S2_mask, 'B': B, 'B_S1': B_S1, 'B_mask': B_mask, 'image_path': image_path, "coverage_bin": coverage_bin}

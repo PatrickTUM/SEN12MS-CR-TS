@@ -171,7 +171,7 @@ def define_G(device, alter_initial_model, unfreeze_iter, initial_model_path, n_s
         else:
             m = model.module.model_initial
         
-        if unfreeze_iter >= 0:  # load from pre-trained model
+        if unfreeze_iter >= 0 and initial_model_path is not None and initial_model_path!='none':  # load from pre-trained model
             state_dict = torch.load(initial_model_path)
 
             # handle state dictionaries that are misnamed

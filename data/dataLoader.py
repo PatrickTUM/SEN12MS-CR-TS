@@ -331,7 +331,7 @@ class SEN12MSCRTS(Dataset):
                                  'S2 path': [os.path.join(self.root_dir, self.paths[pdx]['S2'][cloudless_idx])],
                                  'coord': [coord[cloudless_idx]],
                                  },
-                       'coverage_bin': coverage_match
+                       'coverage bin': coverage_match
                       }
 
         elif self.sample_type == 'generic':  # this returns the whole, unfiltered sequence of S1 & S2 observations
