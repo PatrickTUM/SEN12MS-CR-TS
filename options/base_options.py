@@ -45,7 +45,7 @@ class BaseOptions():
         # dataset parameters
         parser.add_argument('--sample_type', type=str, default='generic', help='choose the format of input data. [cloudy_cloudfree | generic]')
         parser.add_argument('--input_type', type=str, default='all', help='choose the type of input. [all | test | val | train]')
-        parser.add_argument('--region', type=str, default='all', help='choose the region of data input. [all | africa | america | asiaEast | asiaWest | europa')
+        parser.add_argument('--region', type=str, default='all', help='choose the region of data input. [all | africa | america | asiaEast | asiaWest | europa]')
         parser.add_argument('--dataset_mode', type=str, default='sen12mscrts', help='chooses how datasets are loaded. [unaligned | aligned | single | colorization | sen12mscrts]')
         parser.add_argument('--direction', type=str, default='AtoB', help='AtoB or BtoA')
         parser.add_argument('--serial_batches', action='store_true', help='if true, takes images in order to make batches, otherwise takes them randomly')

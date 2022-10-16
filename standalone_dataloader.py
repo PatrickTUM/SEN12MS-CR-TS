@@ -9,9 +9,10 @@ if __name__ == '__main__':
     root        = ''                 # path to your copy of SEN12MS-CR-TS
     split       = 'all'              # ROI to sample from, belonging to splits [all | train | val | test]
     input_t     = 3                  # number of input time points to sample
+    region      = 'all'              # choose the region of data input. [all | africa | america | asiaEast | asiaWest | europa]
     import_path = None               # path to importing the suppl. file specifying what time points to load for input and output
     sample_type = 'cloudy_cloudfree' # type of samples returned [cloudy_cloudfree | generic]
-    sen12mscrts = SEN12MSCRTS(root, split=split, sample_type=sample_type, n_input_samples=input_t, import_data_path=import_path)
+    sen12mscrts = SEN12MSCRTS(root, split=split, sample_type=sample_type, n_input_samples=input_t, region=region, import_data_path=import_path)
     dataloader  = torch.utils.data.DataLoader(sen12mscrts, batch_size=1, shuffle=False, num_workers=10)
     
     # iterate over split and do some data accessing for demonstration

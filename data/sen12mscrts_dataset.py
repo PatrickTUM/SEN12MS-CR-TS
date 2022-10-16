@@ -46,7 +46,7 @@ class Sen12mscrtsDataset(BaseDataset):
             self.rescale_method = 'default' # rescale all to [-1,1] (gets rescaled to [0,1])
 
         self.opt 			= opt
-        self.data_loader 	= SEN12MSCRTS(opt.dataroot, split=opt.input_type, region='all', cloud_masks=opt.cloud_masks, sample_type=opt.sample_type, n_input_samples=opt.n_input_samples, rescale_method=self.rescale_method, min_cov=opt.min_cov, max_cov=opt.max_cov, import_data_path=opt.import_data_path, export_data_path=opt.export_data_path)
+        self.data_loader 	= SEN12MSCRTS(opt.dataroot, split=opt.input_type, region=opt.region, cloud_masks=opt.cloud_masks, sample_type=opt.sample_type, n_input_samples=opt.n_input_samples, rescale_method=self.rescale_method, min_cov=opt.min_cov, max_cov=opt.max_cov, import_data_path=opt.import_data_path, export_data_path=opt.export_data_path)
         self.max_bands		= 13
 
     def __getitem__(self, index):
