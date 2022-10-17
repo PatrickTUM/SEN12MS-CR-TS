@@ -45,11 +45,11 @@ Depending on your choice of the split, ROI, the length of the input time series 
 ### Basic Commands
 You can train a new model via
 ```bash
-python train.py --dataroot /path/to/sen12mscrts --name exemplary_training_run --sample_type cloudy_cloudfree --model temporal_branched --netG resnet3d_9blocks_withoutBottleneck --gpu_ids 0 --max_dataset_size 100000 --checkpoints_dir /path/to/results --input_type train --cloud_masks s2cloudless_mask --include_S1 --input_nc 15 --output_nc 13 --G_loss L1 --lambda_GAN 0.0 --display_freq 1000 --alter_initial_model --initial_model_path /path/to/models/baseline_resnet.pth --n_input_samples 3 --region all
+python train.py --dataroot /path/to/sen12mscrts --dataset_mode sen12mscrts --name exemplary_training_run --sample_type cloudy_cloudfree --model temporal_branched --netG resnet3d_9blocks_withoutBottleneck --gpu_ids 0 --max_dataset_size 100000 --checkpoints_dir /path/to/results --input_type train --cloud_masks s2cloudless_mask --include_S1 --input_nc 15 --output_nc 13 --G_loss L1 --lambda_GAN 0.0 --display_freq 1000 --alter_initial_model --initial_model_path /path/to/models/baseline_resnet.pth --n_input_samples 3 --region all
 ```
 and you can test a (pre-)trained model via
 ```bash
-python test.py --dataroot /path/to/sen12mscrts --results_dir /path/to/results --checkpoints_dir /path/to/results --name exemplary_training_run --model temporal_branched --netG resnet3d_9blocks_withoutBottleneck --include_S1 --input_nc 15 --output_nc 13 --sample_type cloudy_cloudfree --cloud_masks s2cloudless_mask --input_type test --max_dataset_size 100000 --num_test 100000 --n_input_samples 3 --epoch latest --eval --phase test --alter_initial_model --initial_model_path /path/to/models/baseline_resnet.pth --min_cov 0.0 --max_cov 1.0 --region all
+python test.py --dataroot /path/to/sen12mscrts --dataset_mode sen12mscrts --results_dir /path/to/results --checkpoints_dir /path/to/results --name exemplary_training_run --model temporal_branched --netG resnet3d_9blocks_withoutBottleneck --include_S1 --input_nc 15 --output_nc 13 --sample_type cloudy_cloudfree --cloud_masks s2cloudless_mask --input_type test --max_dataset_size 100000 --num_test 100000 --n_input_samples 3 --epoch latest --eval --phase test --alter_initial_model --initial_model_path /path/to/models/baseline_resnet.pth --min_cov 0.0 --max_cov 1.0 --region all
 ```
 
 For a list and description of all flags, please see the parser files in directory `./options`.
