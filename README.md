@@ -40,6 +40,30 @@ The code is written in Python 3 and uses PyTorch > 1.4. It is strongly recommend
 ### Dataset 
 If you already have your own model in place or wish to build one on the SEN12MS-CR-TS data loader for training and testing, the data loader can be used as a stand-alone script as demonstrated in `./standalone_dataloader.py`. This only requires the files `./data/dataLoader.py` (the actual data loader) and `./util/detect_cloudshadow.py` (if this type of cloud detector is chosen).
 
+For using the dataset as a stand-alone with your own model, loading multi-temporal multi-modal data from SEN12MS-CR-TS is as simple as
+
+``` python
+import torch
+from data.dataLoader import SEN12MSCRTS
+dir_SEN12MSCRTS = '/path/to/your/SEN12MSCRTS'
+sen12mscrts     = SEN12MSCRTS(dir_SEN12MSCRTS, split='all', region='all', n_input_samples=3)
+dataloader      = torch.utils.data.DataLoader(sen12mscrts)
+
+for pdx, samples in enumerate(dataloader): print(samples['input'].keys())
+```
+
+and, likewise, if you wish to (pre-)train on the mono-temporal multi-modal SEN12MS-CR dataset:
+ 
+``` python
+import torch
+from data.dataLoader import SEN12MSCR
+dir_SEN12MSCR   = '/path/to/your/SEN12MSCR'
+sen12mscr       = SEN12MSCR(dir_SEN12MSCR, split='all', region='all')
+dataloader      = torch.utils.data.DataLoader(sen12mscr)
+
+for pdx, samples in enumerate(dataloader): print(samples['input'].keys())
+```
+
 Depending on your choice of the split, ROI, the length of the input time series and the cloud detector algorithm, you may end up with different samples of input and output data. We encourage making use of as much of the data set as practicable. However, to ensure a well-defined and replicable test split of holdout data on which to benchmark, we provide separate files [here](https://syncandshare.lrz.de/getlink/fiHhwCqr7ch3X39XoGYaUGM8/splits) that can be loaded with the `--import_data_path /path/to/files/file.npy` flag. Please use those if you which to report your performances on the test split.
 
 ### Basic Commands
