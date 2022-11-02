@@ -555,7 +555,7 @@ class Resnet(nn.Module):
         assert(n_blocks >= 0)
         super(Resnet, self).__init__()
 
-        assert alter_initial_model, Exception("Without bottleneck only works with initial ResNet model.")
+        assert alter_initial_model, Exception("Without bottleneck only works with initial ResNet model. Please use flags --alter_initial_model and --initial_model_path, after fetching the model via: wget https://syncandshare.lrz.de/dl/fiFfN2bj6DaFXfGEGAaAvdZE/baseline_resnet.pth")
         assert n_samples == 1
 
         # get initial model, see network_resnet_branched.py
@@ -602,7 +602,7 @@ class ResnetGeneratorWithoutBottleneck(nn.Module):
         assert(n_blocks >= 0)
         super(ResnetGeneratorWithoutBottleneck, self).__init__()
 
-        assert alter_initial_model, Exception("Without bottleneck only works with initial ResNet model.")
+        assert alter_initial_model,  Exception("Without bottleneck only works with initial ResNet model. Please use flags --alter_initial_model and --initial_model_path, after fetching the model via: wget https://syncandshare.lrz.de/dl/fiFfN2bj6DaFXfGEGAaAvdZE/baseline_resnet.pth")
         assert n_samples >= 3
 
         model_initial = initial_resnet.ResnetStackedArchitecture(opt=opt)
@@ -725,7 +725,7 @@ class ResnetGenerator3DWithoutBottleneck(nn.Module):
         assert(n_blocks >= 0)
         super(ResnetGenerator3DWithoutBottleneck, self).__init__()
 
-        assert alter_initial_model, Exception("Without bottleneck only works with initial ResNet model.")
+        assert alter_initial_model,  Exception("Without bottleneck only works with initial ResNet model. Please use flags --alter_initial_model and --initial_model_path, after fetching the model via: wget https://syncandshare.lrz.de/dl/fiFfN2bj6DaFXfGEGAaAvdZE/baseline_resnet.pth")
         assert n_samples >= 3
 
         model_initial = initial_resnet.ResnetStackedArchitecture(opt=opt)

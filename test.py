@@ -187,6 +187,7 @@ if __name__ == '__main__':
 
         model.set_input(data)  # unpack data from data loader
         img_path = model.get_image_paths() # get image paths
+        if isinstance(img_path[0], tuple): img_path = [img_path[0][0]]
         if i % 10 == 0:  # save images to an HTML file
             print('processing (%04d)-th image... %s' % (i, img_path))        
         
