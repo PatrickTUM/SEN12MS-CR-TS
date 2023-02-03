@@ -273,7 +273,6 @@ echo
 echo
 
 # download each archive individually, then extract individually
-# check for overwriting 3 test ROI
 
 # fetch the actual data
 for key in "${!url_dict[@]}"; do
@@ -281,7 +280,7 @@ for key in "${!url_dict[@]}"; do
     filename=$(basename "$url")
     filename=${filename:7}
     # download
-    wget --no-check-certificate -c -P $dl_extract_to -O $filename ${url_dict[$key]}
+    wget --no-check-certificate -c -O $dl_extract_to'/'$filename ${url_dict[$key]}
     # unzip and delete archive
     tar --extract --file $dl_extract_to'/'$filename -C $dl_extract_to
     rm $dl_extract_to'/'$filename
