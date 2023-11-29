@@ -93,7 +93,7 @@ If you use this code, our models or data set for your research, please cite [thi
         publisher = {IEEE}
 } 
 ```
-You may also be interested in our SEN12MS-CR data set for mono-temporal cloud removal (available [here](https://mediatum.ub.tum.de/1554803)) and the related publication (see [related paper](https://ieeexplore.ieee.org/document/9211498)). You can find further information on these and related projects on the accompanying [website](https://patricktum.github.io/cloud_removal/).
+You may also be interested in our SEN12MS-CR data set for mono-temporal cloud removal (available [here](https://mediatum.ub.tum.de/1554803)) and the related publication (see [related paper](https://ieeexplore.ieee.org/document/9211498)). Also check out our recently released model for quantifying uncertainties in cloud removal, [UnCRtainTS](https://github.com/PatrickTUM/UnCRtainTS). You can find further information on these and related projects on the accompanying [website](https://patricktum.github.io/cloud_removal/).
 
 
 
