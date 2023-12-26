@@ -11,7 +11,7 @@ It serves as a quick start for working with the associated SEN12MS-CR-TS data se
 
 * The open-access publication is available at [the IEEE TGRS page](https://ieeexplore.ieee.org/document/9691348). 
 * The open-access SEN12MS-CR data set is available at the MediaTUM page [here](https://mediatum.ub.tum.de/1639953) (train split) and [here](https://mediatum.ub.tum.de/1659251) (test split).
-* You can find additional information on this and related projects on the associated [project page](https://patricktum.github.io/cloud_removal/).
+* You can find additional information on this and related projects on the associated [cloud removal projects page](https://patrickTUM.github.io/cloud_removal/).
 * For any further questions, please reach out to me here or via the credentials on my [website](https://pwjebel.com).
 ---
 
@@ -64,7 +64,7 @@ dataloader      = torch.utils.data.DataLoader(sen12mscr)
 for pdx, samples in enumerate(dataloader): print(samples['input'].keys())
 ```
 
-Depending on your choice of the split, ROI, the length of the input time series and the cloud detector algorithm, you may end up with different samples of input and output data. We encourage making use of as much of the data set as practicable. However, to ensure a well-defined and replicable test split of holdout data on which to benchmark, we provide separate files [here](https://syncandshare.lrz.de/getlink/fiHhwCqr7ch3X39XoGYaUGM8/splits) that can be loaded with the `--import_data_path /path/to/files/file.npy` flag. Please use those if you which to report your performances on the test split.
+Depending on your choice of the split, ROI, the length of the input time series and the cloud detector algorithm, you may end up with different samples of input and output data. We encourage making use of as much of the data set as practicable. However, to ensure a well-defined and replicable test split of holdout data on which to benchmark, we provide separate files [here](https://u.pcloud.link/publink/show?code=kZXdbk0ZaAHNV2a5ofbB9UW4xCyCT0YFYAFk) that can be loaded with the `--import_data_path /path/to/files/file.npy` flag. Please use those if you which to report your performances on the test split.
 
 ### Basic Commands
 You can train a new model via
@@ -93,7 +93,7 @@ If you use this code, our models or data set for your research, please cite [thi
         publisher = {IEEE}
 } 
 ```
-You may also be interested in our SEN12MS-CR data set for mono-temporal cloud removal (available [here](https://mediatum.ub.tum.de/1554803)) and the related publication (see [related paper](https://ieeexplore.ieee.org/document/9211498)). Also check out our recently released model for quantifying uncertainties in cloud removal, [UnCRtainTS](https://github.com/PatrickTUM/UnCRtainTS). You can find further information on these and related projects on the accompanying [website](https://patricktum.github.io/cloud_removal/).
+You may also be interested in our SEN12MS-CR data set for mono-temporal cloud removal (available [here](https://mediatum.ub.tum.de/1554803)) and the related publication (see [related paper](https://ieeexplore.ieee.org/document/9211498)). Also check out our recently released model for quantifying uncertainties in cloud removal, [UnCRtainTS](https://github.com/PatrickTUM/UnCRtainTS). You can find further information on these and related projects on the accompanying [cloud removal website](https://patrickTUM.github.io/cloud_removal/).
 
 
 
