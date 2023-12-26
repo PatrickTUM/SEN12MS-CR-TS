@@ -3,6 +3,8 @@ import warnings
 import numpy as np
 from tqdm import tqdm
 from natsort import natsorted
+from multiprocessing import Pool, Manager
+from functools import partial
 
 from datetime import datetime
 to_date   = lambda string: datetime.strptime(string, '%Y-%m-%d')
@@ -439,35 +441,47 @@ class SEN12MSCR(Dataset):
 
         self.method         = rescale_method
 
+    def get_paths_roi(self, seed, paths, roi):
+        roi_dir  = os.path.join(self.root_dir, seed, roi) 
+        paths_S1        = natsorted([os.path.join(roi_dir, s1patch) for s1patch in os.listdir(roi_dir)])  
+        paths_S2        = [patch.replace('/s1', '/s2').replace('_s1', '_s2') for patch in paths_S1]
+        paths_S2_cloudy = [patch.replace('/s1', '/s2_cloudy').replace('_s1', '_s2_cloudy') for patch in paths_S1]
+
+        for pdx, _ in enumerate(paths_S1):
+            # omit patches that are potentially unpaired  
+            if not all([os.path.isfile(paths_S1[pdx]), 
+                        os.path.isfile(paths_S2[pdx]), 
+                        os.path.isfile(paths_S2_cloudy[pdx])]): 
+                print(f'Warning: patch {paths_S1[pdx]} is not paired!')
+                continue
+            # don't add patch if not belonging to the selected split
+            if not any([split_roi in paths_S1[pdx] 
+                        for split_roi in self.splits[self.split]]): 
+                continue
+            sample = {"S1":         paths_S1[pdx],
+                    "S2":         paths_S2[pdx],
+                    "S2_cloudy":  paths_S2_cloudy[pdx]}
+            paths.append(sample)
+
     # indexes all patches contained in the current data split
     def get_paths(self):  # assuming for the same ROI+num, the patch numbers are the same
         print(f'\nProcessing paths for {self.split} split of region {self.region}')
 
-        paths = []
+        paths = Manager().list()
         seeds_S1 = natsorted([s1dir for s1dir in os.listdir(self.root_dir) if "_s1" in s1dir])
         for seed in tqdm(seeds_S1):
             rois_S1 = natsorted(os.listdir(os.path.join(self.root_dir, seed)))
-            for roi in rois_S1:
-                roi_dir  = os.path.join(self.root_dir, seed, roi)
-                paths_S1        = natsorted([os.path.join(roi_dir, s1patch) for s1patch in os.listdir(roi_dir)])
-                paths_S2        = [patch.replace('/s1', '/s2').replace('_s1', '_s2') for patch in paths_S1]
-                paths_S2_cloudy = [patch.replace('/s1', '/s2_cloudy').replace('_s1', '_s2_cloudy') for patch in paths_S1]
-
-                for pdx, _ in enumerate(paths_S1):
-                    # omit patches that are potentially unpaired
-                    if not all([os.path.isfile(paths_S1[pdx]), os.path.isfile(paths_S2[pdx]), os.path.isfile(paths_S2_cloudy[pdx])]): continue
-                    # don't add patch if not belonging to the selected split
-                    if not any([split_roi in paths_S1[pdx] for split_roi in self.splits[self.split]]): continue
-                    sample = {"S1":         paths_S1[pdx],
-                              "S2":         paths_S2[pdx],
-                              "S2_cloudy":  paths_S2_cloudy[pdx]}
-                    paths.append(sample)
+            get_path_roi_func = partial(self.get_paths_roi, seed, paths)
+            with Pool() as p:
+                p.map(get_path_roi_func, rois_S1)
+        
+        paths = list(paths)
         return paths
 
     def __getitem__(self, pdx):  # get the triplet of patch with ID pdx
-        s1_tif          = read_tif(os.path.join(self.root_dir, self.paths[pdx]['S1']))
-        s2_tif          = read_tif(os.path.join(self.root_dir, self.paths[pdx]['S2']))
-        s2_cloudy_tif   = read_tif(os.path.join(self.root_dir, self.paths[pdx]['S2_cloudy']))
+        s1_tif          = read_tif(self.paths[pdx]['S1'])  # the root_dir is joined repeatedly
+        s2_tif          = read_tif(self.paths[pdx]['S2'])
+        s2_cloudy_tif   = read_tif(self.paths[pdx]['S2_cloudy'])
         coord           = list(s2_tif.bounds)
         s1              = process_SAR(read_img(s1_tif), self.method)
         s2              = read_img(s2_tif)           # note: pre-processing happens after cloud detection
